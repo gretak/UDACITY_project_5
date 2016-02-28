@@ -2,10 +2,14 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/style.css"/>
     <script src='js/map.js'></script>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>  
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script> 
+    <script type='text/javascript' src='js/knockout-3.4.0.js'></script> 
 </head>
 <body>
     <div id="list">
+        <form>
+        <input placeholder="Search" type="search" data-bind=' event: { keyup: search }' class="form-control" autocomplete="off">
+        </form>
         <ul>
             <li>
                 University
