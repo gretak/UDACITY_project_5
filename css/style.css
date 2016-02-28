@@ -14,9 +14,8 @@ img {
 }
 
 a {
-    text-decoration: none;
-    color: 000;
     font-size: 16px;
+    color: #000;
 }
 
 #map {
@@ -31,6 +30,12 @@ a {
     height: 100%;
 }
 
-.info-window-background {
+.info-window {
+    width: 250px;
     background-image: url("background-info.jpg");
+}
+
+.description {
+    color: #369;
+    font-size: 14px;
 }
