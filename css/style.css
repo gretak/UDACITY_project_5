@@ -18,7 +18,7 @@ a {
     color: #000;
 }
 
-#map {
+#map-container {
     float: right;
     width: 60%;
     height: 100%;
