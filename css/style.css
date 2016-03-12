@@ -18,6 +18,17 @@ a {
     color: #000;
 }
 
+ul {
+    padding: 0px;
+}
+
+input {
+    padding: 10px;
+    margin: 10px;
+    background-image: url("background-info.jpg");
+    font-size: 14px;
+}
+
 #map-container {
     float: right;
     width: 60%;
@@ -30,7 +41,7 @@ a {
     height: 100%;
 }
 
-.info-window {
+/*.info-window {
     width: 250px;
     background-image: url("background-info.jpg");
 }
@@ -38,4 +49,24 @@ a {
 .description {
     color: #369;
     font-size: 14px;
+}*/
+
+.list {
+    color: #fff;
+    padding: 10px 10px;
+
+}
+
+.list-item {
+    list-style-type: none;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: black;
+    margin: 10px;
+    padding: 10px 10px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 8px;
+    background-image: url("background-info.jpg");
 }

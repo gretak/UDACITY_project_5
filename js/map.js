@@ -1,29 +1,21 @@
    
 //function initMap() {
 function app() {
+
 var map;
 
-
 function initMap(){
-  var myPlace = new google.maps.LatLng(55.9333,23.3167);
-         // var infowindow = new google.maps.InfoWindow();
+  var mainPlace = new google.maps.LatLng(55.9333,23.3167);
+          
           var mapOptions = {
-           center: myPlace,
+           center: mainPlace,
             zoom: 11
             };
-            map = new google.maps.Map(document.getElementById("map-container"),
-            mapOptions);
 
+  map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
   }
 
-//google.maps.event.addDomListener(window, "load", initMap);
-
-
-//    var infowindow = new google.maps.InfoWindow();
- //   var marker, i;
-// inserted from beer exp
-//function Model (){
-  var markers = ko.observableArray ([
+var markers = ko.observableArray ([
         {
             title: "Rekyva Lake",
             lat: 55.86667,
@@ -87,8 +79,6 @@ var ViewModel = function() {
     var self = this;
     var bounds = new google.maps.LatLngBounds();
 
-   // var myLatlng = new google.maps.LatLng(lat,lng);
-//console.log(markers)
     var Pointer = function(map, title, lat, lng, link, description, webaddress) {
         this.title = ko.observable(title);
         this.lat = ko.observable(lat);
@@ -96,14 +86,12 @@ var ViewModel = function() {
         this.link = ko.observable(link);
         this.description = ko.observable(description);
         this.webaddress = ko.observable(webaddress);
-   //     console.log(ko.observableArray(markers()[0]));
 
         this.marker = new google.maps.Marker({
             position: new google.maps.LatLng(lat,lng),
             map: map,
             animation: google.maps.Animation.DROP,
             icon: 'css/icon.png'
-       //     title: this.title
         });
 
         bounds.extend(this.marker.position);
@@ -122,7 +110,9 @@ var infowindow = new google.maps.InfoWindow();
             google.maps.event.addListener(markers()[i].pointer.marker,'click', (function(pointer, content, infowindow, heading){
                 
                 return function() {
-                    viewModel.getWikis(heading, infowindow);
+                  //  viewModel.getinfo(heading, infowindow);
+                  infowindow.setContent('<h1>' + heading + '</h1>' + '<a href="' + content + '">' + 'Wikipedia Link to ' +
+                  heading + '</a>');
                     infowindow.open(map, pointer.marker);
                     pointer.marker.setAnimation(google.maps.Animation.BOUNCE);
                     setTimeout(function() {pointer.marker.setAnimation(null); }, 750);
@@ -155,33 +145,33 @@ var infowindow = new google.maps.InfoWindow();
 
 //};
 
-self.getWikis = function(heading, infowindow) {
-    //get Wiki articles
-    var thePlace = heading;
-    var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + thePlace  +
-                  '&format=json&callback=wikiCallback';
-    $.ajax({
-      url: wikiUrl,
-      dataType: "jsonp",
-      timeout: 8000,
-      //jsonp: "callback",
-      success: function ( response) {
-          var articleStr = response[0];
-          var url = 'http://en.wikipedia.org/wiki/' + articleStr;
+// self.getinfo = function(heading, infowindow) {
+//     //get Wiki articles
+//     var thePlace = heading;
+//     var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + thePlace  +
+//                   '&format=json&callback=wikiCallback';
+//     $.ajax({
+//       url: wikiUrl,
+//       dataType: "jsonp",
+//       timeout: 8000,
+//       //jsonp: "callback",
+//       success: function ( response) {
+//           var articleStr = response[0];
+//           var url = 'http://en.wikipedia.org/wiki/' + articleStr;
 
-          content = url;
-          infowindow.setContent('<h4>' + heading + '</h4>' + '<a href="' + content + '">' + 'Wikipedia Link to ' +
-                  heading + '</a>');
-        }
+//           content = url;
+//           infowindow.setContent('<h4>' + heading + '</h4>' + '<a href="' + content + '">' + 'Wikipedia Link to ' +
+//                   heading + '</a>');
+//         }
 
-    }).fail(function(x, t, m) {
-        if (t==='timeout'){alert("got timeout");
-          } else {
-            alert(t);
-          }
-  });
+//     }).fail(function(x, t, m) {
+//         if (t==='timeout'){alert("got timeout");
+//           } else {
+//             alert(t);
+//           }
+//   });
 
-  }; //end getWikis
+//   }; //end getWikis
 
 self.listItemClick = function(item) {
   clickedMarker = item.pointer.marker;
