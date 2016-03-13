@@ -1,5 +1,4 @@
    
-//function initMap() {
 function app() {
 
 var map;
@@ -14,6 +13,13 @@ function initMap(){
 
   map = new google.maps.Map(document.getElementById("map-container"), mapOptions);
   }
+
+ //$.getJSON("js/data.json", function( json ) { 
+
+         // for (i = 0; i < json.markers.length; i++) { 
+         //    var data = json.markers[i];
+         //  var markers = ko.observable(data);
+
 
 var markers = ko.observableArray ([
         {
@@ -97,30 +103,26 @@ var ViewModel = function() {
         bounds.extend(this.marker.position);
     };
 
-        // google.maps.event.addListener(map, 'click', function() {
-        // infowindow.close();
-        // });
 var infowindow = new google.maps.InfoWindow();
 
         for (i=0; i<markers().length; i++) {
             markers()[i].pointer = new Pointer(map, markers()[i].title, markers()[i].lat, markers()[i].lng, markers()[i].link, markers()[i].description, markers()[i].webaddress);
-            var content = markers()[i].pointer.description();
-            var heading = markers()[i].pointer.title();
+            var description = markers()[i].pointer.description();
+            var title = markers()[i].pointer.title();
+            var link = markers()[i].pointer.link();
+            var webaddress = markers()[i].pointer.webaddress();
 
-            google.maps.event.addListener(markers()[i].pointer.marker,'click', (function(pointer, content, infowindow, heading){
+            google.maps.event.addListener(markers()[i].pointer.marker,'click', (function(pointer, description, infowindow, title, webaddress,link){
                 
                 return function() {
-                  //  viewModel.getinfo(heading, infowindow);
-                  infowindow.setContent('<h1>' + heading + '</h1>' + '<a href="' + content + '">' + 'Wikipedia Link to ' +
-                  heading + '</a>');
+                    infowindow.setContent("<div class ='info-window'>"+'<h2>'+title+'</h2>'+'<p class="description">'+description+'</p>'+'<p>'+'<a href="'+webaddress+'">'+link+'</a>'+'</p>'+"</div>");
                     infowindow.open(map, pointer.marker);
                     pointer.marker.setAnimation(google.maps.Animation.BOUNCE);
                     setTimeout(function() {pointer.marker.setAnimation(null); }, 750);
                 };
-            }) (markers()[i].pointer, content, infowindow, heading));
+            }) (markers()[i].pointer, description, infowindow, title, webaddress, link));
         }
 
-  //      console.log(bounds);
         map.fitBounds(bounds);
 
         self.locations = ko.observableArray(markers());
@@ -143,46 +145,15 @@ var infowindow = new google.maps.InfoWindow();
             return self.visibleLocations();
         });
 
-//};
-
-// self.getinfo = function(heading, infowindow) {
-//     //get Wiki articles
-//     var thePlace = heading;
-//     var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + thePlace  +
-//                   '&format=json&callback=wikiCallback';
-//     $.ajax({
-//       url: wikiUrl,
-//       dataType: "jsonp",
-//       timeout: 8000,
-//       //jsonp: "callback",
-//       success: function ( response) {
-//           var articleStr = response[0];
-//           var url = 'http://en.wikipedia.org/wiki/' + articleStr;
-
-//           content = url;
-//           infowindow.setContent('<h4>' + heading + '</h4>' + '<a href="' + content + '">' + 'Wikipedia Link to ' +
-//                   heading + '</a>');
-//         }
-
-//     }).fail(function(x, t, m) {
-//         if (t==='timeout'){alert("got timeout");
-//           } else {
-//             alert(t);
-//           }
-//   });
-
-//   }; //end getWikis
-
 self.listItemClick = function(item) {
   clickedMarker = item.pointer.marker;
   google.maps.event.trigger(clickedMarker, 'click');
   };
 };
+
+
 var viewModel;
 
-    // function initialize() {
-
-    // }
 
     function startApp(){
         initMap();
@@ -191,19 +162,8 @@ var viewModel;
 }
 
 startApp();
+
 }
- //   google.maps.event.addDomListener(window, 'load', initialize);
-
-
-//     self.points = ko.observableArray(markers);
-//     self.query = ko.observable('');
-//     self.search = ko.computed(function(){
-//     return ko.utils.arrayFilter(self.points(), function(point){
-//         console.log(point.lat, point.lng);
-//       return point.title.toLowerCase().indexOf(self.query().toLowerCase()) >= 0;
-//     });
-//   });
-// };
 
 // ko.applyBindings(new viewModel());
 
@@ -233,39 +193,3 @@ startApp();
 //     }
 // });  
 //}
-
-//function Model() {
-  //Define stuff here to hold your information such as lists of markers, places, and other data you need
-//}
-//var MODEL = new Model();
-
-// function ViewModel(){
-//     var self = this;
-//     self.data = ko.observableArray(markers);
-//     self.filter = ko.observable('');
-//     self.search = function(value){
-//         self.markers.removeAll();
-//         for (var i=0; i<markers.length; i++){
-//          //   console.log(markers[]);
-//             self.data().push(markers[i]);
-//         };
-//     };
-
-// self.personMarkers = function() {
-//     for (var i = 0; i < self.markers().length; i++) {
-//     new addMarker(self.markers()[i].lat(), self.markers()[i].long(), self.people()[i].titleTitle());
-//     };
-//   };
-
-//   self.personMarkers();
-  
-//};
-
-
-//ko.applyBindings(new ViewModel());
-
-//Really all you should be using knockout for is the list view, the search bar, and possibly the map markers.
-
-//markers: visible or not in your filtering loop
-
-

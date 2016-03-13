@@ -1,5 +1,4 @@
- {
-    "markers": [
+[
         {
             "title": "Rekyva Lake",
             "lat": "55.86667",
@@ -57,4 +56,5 @@
             "webaddress": "http://www.hillofcrosses.com"
         }
         ]
-    }
+      
+    

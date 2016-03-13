@@ -41,7 +41,7 @@ input {
     height: 100%;
 }
 
-/*.info-window {
+.info-window {
     width: 250px;
     background-image: url("background-info.jpg");
 }
@@ -49,7 +49,7 @@ input {
 .description {
     color: #369;
     font-size: 14px;
-}*/
+}
 
 .list {
     color: #fff;
