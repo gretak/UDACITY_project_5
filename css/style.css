@@ -48,10 +48,7 @@ input {
     padding: 10px 10px;
 }
 .list-item {
-    list-style-type: none;
-    background-color: #4CAF50;
-    /* Green */
-    
+    list-style-type: none;    
     border: none;
     color: black;
     margin: 10px;
