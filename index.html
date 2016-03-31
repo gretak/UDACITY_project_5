@@ -11,24 +11,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js">
     </script>
     <script src='js/map.js'></script>
-    <script>
-        function googlesuccess() {
-            app();
-        }
-    </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLtnK9Iy7FBcX22ypzwlFbY0hh8x0RJEk&callback=app">
     </script>
 </head>
 
 <body>
-    <div id="list">
-        <input placeholder="Search location" type="search" data-bind="textInput: query"></input>
+    <article class="list-div">
+        <input placeholder="Search here" type="search" data-bind="textInput: query">
         <h3 class="list">Search results:</h3>
         <ul data-bind="foreach: search()">
             <li class="list-item" data-bind="text: title, click: $root.listItemClick"></li>
         </ul>
-    </div>
-    <div id="map-container"></div>
+    </article>
+    <main id="map-container"></main>
 </body>
 
 </html>

@@ -1,4 +1,3 @@
-
 function app() {
 
     var map;
@@ -83,7 +82,7 @@ function app() {
                 position: new google.maps.LatLng(lat, lng),
                 map: map,
                 animation: google.maps.Animation.DROP,
-                icon: '../img/icon.png'
+                icon: 'img/icon.png'
             });
 
             bounds.extend(this.marker.position);
@@ -151,3 +150,12 @@ function app() {
     startApp();
 
 }
+
+// function loadScript() {
+//   var script = document.createElement("script");
+//   script.type = "text/javascript";
+//   script.src = "http://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=TRUE_OR_FALSE&callback=app";
+//   document.body.appendChild(script);
+// }
+
+// window.onload = loadScript;

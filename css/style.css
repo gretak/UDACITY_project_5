@@ -24,13 +24,14 @@ input {
     margin: 10px;
     background-image: url("../img/background-info.jpg");
     font-size: 14px;
+    width: 175px;
 }
 #map-container {
     float: right;
     width: 65%;
     height: 100%;
 }
-#list {
+.list-div {
     float: left;
     width: 35%;
     height: 100%;
@@ -59,11 +60,24 @@ input {
     border-radius: 8px;
     background-image: url("../img/background-info.jpg");
 }
+.warning {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background-color: #fcf8e3;
+    padding: 1em;
+    font-size: 150%;
+    width: 100%;
+    text-align: center;
+}
+
 @media screen and (max-width: 550px) {
     .list-item {
         font-size: 12px;
     }
     input {
         font-size: 11px;
+        width: 80%;
     }
 }
