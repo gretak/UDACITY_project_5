@@ -17,51 +17,31 @@ function app() {
     var markers = ko.observableArray([{
         title: "Rekyva Lake",
         lat: 55.86667,
-        lng: 23.30000,
-        description: '',
-//        description: "Rekyva is the largest watershed lake in Lithuania.",
-        webaddress: "https://lt.wikipedia.org/wiki/R%C4%97kyvos_e%C5%BEeras"
+        lng: 23.30000
     }, {
         title: "Saint Disciple Peter and Paul Cathedral",
         lat: 55.97667,
-        lng: 23.37000,
-        description: '',
- //       description: "Built in 1626. Gained cathedral status after Pope John Paul II tour in 1997. Great example of renaisschitecture.",
-        webaddress: "https://en.wikipedia.org/wiki/Roman_Catholic_Diocese_of_%C5%A0iauliai"
+        lng: 23.37000
     }, {
         title: "Siauliai University",
         lat: 55.9264,
-        lng: 23.3044,
-        description: '',
-        webaddress: "http://www.su.lt"
+        lng: 23.3044
     }, {
-        title: "Shoping Mall",
+        title: "Akropolis Shoping Mall",
         lat: 55.8963,
-        lng: 23.24667,
-        description: '',
-//        description: "Akropolis shopping centre in Siauliai, opened in spring 2009, and offering an area of 50,000 m2, combines rational size of a shopping and recreation centre.",
-        webaddress: "http://www.akropolis.lt"
+        lng: 23.24667
     }, {
-        title: "Shoping Mall",
+        title: "Saules miestas Shoping Mall",
         lat: 55.9463,
-        lng: 23.33667,
-        description: '',
-   //     description: "Saules miestas, opened in 2007 spring, is one of the most recent and probably the most modern shopping and entertainment centre in Siauliai City. The total area of the shopping centre is 41,526 m², there are located  integrated bus station,",
-        webaddress: "http://www.saulesmiestas.lt/en"
+        lng: 23.33667
     }, {
         title: "Siauliai International Airport",
         lat: 55.8939,
-        lng: 23.3947,
-        description: '',
-  //      description: "Home to the NATO Baltic Air Policing forward deployment, providing airspace security for the three Baltic members of NATO.",
-        webaddress: "http://www.siauliai-airport.com"
+        lng: 23.3947
     }, {
         title: "Hill of Crosses",
         lat: 56.0153,
-        lng: 23.4167,
-        description: '',
-   //     description: "The Hill of Crosses ia an historical architectural monument, it is a unique composition of folk art.",
-        webaddress: "http://www.hillofcrosses.com"
+        lng: 23.4167
     }]);
 
 
@@ -74,8 +54,6 @@ function app() {
             this.lat = ko.observable(lat);
             this.lng = ko.observable(lng);
             this.description = ko.observable(description);
-   //         this.description = ko.observable(description);
-    //        this.webaddress = ko.observable(webaddress);
 
             this.marker = new google.maps.Marker({
                 position: new google.maps.LatLng(lat, lng),
@@ -93,13 +71,11 @@ function app() {
             markers()[i].pointer = new Pointer(map, markers()[i].title, markers()[i].lat, markers()[i].lng, markers()[i].description);
             var description = markers()[i].pointer.description();
             var title = markers()[i].pointer.title();
-          //  var link = markers()[i].pointer.link();
-         //   var webaddress = markers()[i].pointer.webaddress();
+
 
             google.maps.event.addListener(markers()[i].pointer.marker, 'click', (function(pointer, description, infowindow, title) {
 
                 return function() {
-  //                 infowindow.setContent("<div class ='info-window'>" + '<h2>' + title + '</h2>' + '<p class="description">' + description + '</p>' + "</div>");
                     viewModel.getWikis(title, infowindow);
                     infowindow.open(map, pointer.marker);
                     pointer.marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -132,19 +108,16 @@ function app() {
         });
 
     self.getWikis = function(title, infowindow) {
-    //get Wiki articles
-    var thePlace = title;
-    var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + thePlace  +
-                  '&format=json&callback=wikiCallback';
+
     $.ajax({
-      url: wikiUrl,
+      url: 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + title  +
+                  '&format=json&callback=wikiCallback',
       dataType: "jsonp",
       timeout: 6000,
-      //jsonp: "callback",
       success: function (response) {
 
           description = 'http://en.wikipedia.org/wiki/' + response[0];
-          infowindow.setContent("<div class ='info-window'>" + '<h2>' + title + '</h2>' + '<p class="description">' + '<a href="' + description + '">' + '<img style= "width: 40px;" src="img/info.png">'+'</a>' + '</p>'+'</div>');
+          infowindow.setContent("<div class ='info-window'>" + '<h3>' + title + '</h3>' + '<p class="description">' + '<a href="' + description + '">' + '<img style= "width: 40px;" src="img/info.png">'+'</a>' + '</p>'+'</div>');
         }
 
     }).fail(function(x, t, m) {
@@ -176,12 +149,3 @@ function app() {
     startApp();
 
 }
-
-// function loadScript() {
-//   var script = document.createElement("script");
-//   script.type = "text/javascript";
-//   script.src = "http://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&sensor=TRUE_OR_FALSE&callback=app";
-//   document.body.appendChild(script);
-// }
-
-// window.onload = loadScript;
