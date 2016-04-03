@@ -15,31 +15,31 @@ function app() {
 
 
     var markers = ko.observableArray([{
-        title: "Rekyva Lake",
+        title: 'Rekyva Lake',
         lat: 55.86667,
         lng: 23.30000
     }, {
-        title: "Saint Disciple Peter and Paul Cathedral",
+        title: 'Saint Disciple Peter and Paul Cathedral',
         lat: 55.97667,
         lng: 23.37000
     }, {
-        title: "Siauliai University",
+        title: 'Siauliai University',
         lat: 55.9264,
         lng: 23.3044
     }, {
-        title: "Akropolis Shoping Mall",
+        title: 'Akropolis Shoping Mall',
         lat: 55.8963,
         lng: 23.24667
     }, {
-        title: "Saules miestas Shoping Mall",
+        title: 'Saules miestas Shoping Mall',
         lat: 55.9463,
         lng: 23.33667
     }, {
-        title: "Siauliai International Airport",
+        title: 'Siauliai International Airport',
         lat: 55.8939,
         lng: 23.3947
     }, {
-        title: "Hill of Crosses",
+        title: 'Hill of Crosses',
         lat: 56.0153,
         lng: 23.4167
     }]);
@@ -107,28 +107,25 @@ function app() {
             return self.visibleLocations();
         });
 
-    self.getWikis = function(title, infowindow) {
+        self.getWikis = function(title, infowindow) {
 
-    $.ajax({
-      url: 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + title  +
-                  '&format=json&callback=wikiCallback',
-      dataType: "jsonp",
-      timeout: 6000,
-      success: function (response) {
+            var wikiRequestTimeout = setTimeout(function() {
+                alert("failed to get wikipedia resources");
+            }, 8000);
 
-          description = 'http://en.wikipedia.org/wiki/' + response[0];
-          infowindow.setContent("<div class ='info-window'>" + '<h3>' + title + '</h3>' + '<p class="description">' + '<a href="' + description + '">' + '<img style= "width: 40px;" src="img/info.png">'+'</a>' + '</p>'+'</div>');
-        }
+            $.ajax({
+                url: 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + title +
+                    '&format=json&callback=wikiCallback',
+                dataType: "jsonp",
+                success: function(response) {
+                    description = 'http://en.wikipedia.org/wiki/' + response[0];
+                    infowindow.setContent("<div class ='info-window'>" + '<h3>' + title + '</h3>' + '<p class="description">' + '<a href="' + description + '" target="_blank">' + '<img style= "width: 40px;" src="img/info.png">' + '</a>' + '</p>' + '</div>');
 
-    }).fail(function(x, t, m) {
-        if (t==='timeout'){alert("You are offline");
-          } else {
-            alert(t);
-          }
-  });
+                    clearTimeout(wikiRequestTimeout);
 
-  };
-
+                }
+            })
+        };
 
         self.listItemClick = function(item) {
             clickedMarker = item.pointer.marker;

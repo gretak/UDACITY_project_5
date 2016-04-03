@@ -11,7 +11,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.2.0/knockout-min.js">
     </script>
     <script src='js/map.js'></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLtnK9Iy7FBcX22ypzwlFbY0hh8x0RJEk&callback=app">
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLtnK9Iy7FBcX22ypzwlFbY0hh8x0RJEk&callback=app" onerror="googleError()">
+    </script>
+    <script>
+        function googleError() {
+            alert("Map can not be laoded.");
+        }
     </script>
 </head>
 
