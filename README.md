@@ -1,4 +1,4 @@
-**p5-neighbourhood-map**
+**P5-neighbourhood-map**
 
 To run application open *index.html* on your local host.
 
